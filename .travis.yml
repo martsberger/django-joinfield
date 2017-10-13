@@ -11,13 +11,13 @@ env:
   - DJANGO=1.11 DB=sqlite
   - DJANGO=1.11 DB=mysql
   - DJANGO=1.11 DB=postgres
-  - DJANGO=2.0 DB=sqlite
+  - DJANGO="https://github.com/django/django/archive/stable/2.0.x.zip" DB=sqlite
 matrix:
   exclude:
   - python: "2.7"
-    env: DJANGO=2.0
+    env: DJANGO="https://github.com/django/django/archive/stable/2.0.x.zip"
   - python: "3.4"
-    env: DJANGO=2.0
+    env: DJANGO="https://github.com/django/django/archive/stable/2.0.x.zip"
 
 before_script:
   - mysql -e 'create database joinfield;'
