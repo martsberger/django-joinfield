@@ -12,7 +12,7 @@ Install via pip:
     pip install django-joinfield
 
 Put ``joinfield`` in INSTALLED_APPS in your settings file. Then you can import
-JoinField and use it when defining your models:
+JoinField and use it when defining your models::
 
     from joinfield import JoinField
 
@@ -28,7 +28,7 @@ the ``to_field`` parent column. In this case, a CharField. It will not be a
 foreign key and there will be no database constraints between these
 two tables.
 
-Now you can do joins between child and parent using the orm:
+Now you can do joins between child and parent using the orm::
 
     parent = Parent.objects.first()
     children = Child.objects.filter(parent=parent)
