@@ -26,6 +26,6 @@ install:
   - pip install pip --upgrade
   - if [ "$DB" == "mysql" ]; then pip install mysqlclient; fi
   - if [ "$DB" == "postgres" ]; then pip install psycopg2; fi
-  - if [ "$DJ2" == "" ]; then pip install -q Django==$DJANGO else pip install DJ2;
+  - if [ "$DJ2" == "" ]; then pip install -q Django==$DJANGO else pip install DJ2; fi
 script:
   - python runtests.py --settings=joinfield.tests.test_"$DB"_settings
