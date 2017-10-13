@@ -11,12 +11,9 @@ env:
   - DJANGO=1.11 DB=sqlite DJ2=""
   - DJANGO=1.11 DB=mysql DJ2=""
   - DJANGO=1.11 DB=postgres DJ2=""
-  - DJANGO="" DJ2="https://github.com/django/django/archive/stable/2.0.x.zip" DB=sqlite
 matrix:
-  exclude:
-  - python: "2.7"
-    env: DJ2="https://github.com/django/django/archive/stable/2.0.x.zip"
-  - python: "3.4"
+  include:
+  - python: "3.6"
     env: DJ2="https://github.com/django/django/archive/stable/2.0.x.zip"
 
 before_script:
@@ -26,6 +23,6 @@ install:
   - pip install pip --upgrade
   - if [ "$DB" == "mysql" ]; then pip install mysqlclient; fi
   - if [ "$DB" == "postgres" ]; then pip install psycopg2; fi
-  - if [ "$DJ2" == "" ]; then pip install -q Django==$DJANGO; else pip install DJ2; fi
+  - if [ "$DJ2" == "" ]; then pip install -q Django==$DJANGO; else pip install $DJ2; fi
 script:
   - python runtests.py --settings=joinfield.tests.test_"$DB"_settings
