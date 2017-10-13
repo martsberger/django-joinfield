@@ -32,10 +32,20 @@ class JoinFieldDescriptor(ForwardManyToOneDescriptor):
 
             # Set the related instance cache used by __get__ to avoid an SQL query
             # when accessing the attribute we just set.
-            self.field.set_cached_value(instance, value)
+            if hasattr(self.field, 'set_cached_value'):
+                # Django >= 2.0
+                self.field.set_cached_value(instance, value)
+            else:
+                # Django <= 1.11
+                setattr(instance, self.cache_name, value)
 
         else:
-            self.field.set_cached_value(instance, None)
+            if hasattr(self.field, 'set_cached_value'):
+                # Django >= 2.0
+                self.field.set_cached_value(instance, None)
+            else:
+                # Django <= 1.11
+                setattr(instance, self.cache_name, None)
 
             # Set the values of the related field.
             for lh_field, rh_field in self.field.related_fields:
