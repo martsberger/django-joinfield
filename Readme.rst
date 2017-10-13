@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/martsberger/django-joinfield.svg?branch=master
+    :target: https://travis-ci.org/martsberger/django-joinfield
+
 Django JoinField
 ================
 

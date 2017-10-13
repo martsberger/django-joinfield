@@ -14,7 +14,7 @@ def parse_args():
         sys.exit(1)
 
     if not options.unittest:
-        options.unittest = ['pivot']
+        options.unittest = ['joinfield']
 
     return options
 
