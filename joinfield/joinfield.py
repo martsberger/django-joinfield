@@ -61,5 +61,6 @@ class JoinFieldDescriptor(ForwardManyToOneDescriptor):
 class JoinField(ForeignKey):
     forward_related_accessor_class = JoinFieldDescriptor
 
-    def __init__(self, *args, db_constraint=False, **kwargs):
-        super(JoinField, self).__init__(*args, db_constraint=db_constraint, **kwargs)
+    def __init__(self, *args, **kwargs):
+        kwargs['db_constraint'] = kwargs.get('db_constraint', False)
+        super(JoinField, self).__init__(*args, **kwargs)
