@@ -8,10 +8,16 @@ services:
   - mysql
   - postgresql
 env:
-  - DJANGO=1.10 DB=sqlite
   - DJANGO=1.11 DB=sqlite
   - DJANGO=1.11 DB=mysql
   - DJANGO=1.11 DB=postgres
+  - DJANGO=2.0 DB=sqlite
+matrix:
+  exclude:
+  - python: "2.7"
+    env: DJANGO=2.0
+  - python: "3.4"
+    env: DJANGO=2.0
 
 before_script:
   - mysql -e 'create database joinfield;'
