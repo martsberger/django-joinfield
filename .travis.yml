@@ -14,7 +14,9 @@ env:
 matrix:
   include:
   - python: "3.6"
-    env: DJ2="https://github.com/django/django/archive/stable/2.0.x.zip"
+    env: DJ2="https://github.com/django/django/archive/stable/2.0.x.zip" DB=sqlite
+  - python: "3.6"
+    env: DJ2="https://github.com/django/django/archive/stable/2.0.x.zip" DB=postgres
 
 before_script:
   - mysql -e 'create database joinfield;'
