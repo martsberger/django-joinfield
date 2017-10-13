@@ -27,7 +27,7 @@ class JoinFieldDescriptor(ForwardManyToOneDescriptor):
 
             # If value is a related instance, get the value from the related
             # field attribute
-            for lh_field, rh_field in self.field.relatedfields:
+            for lh_field, rh_field in self.field.related_fields:
                 setattr(instance, lh_field.attname, getattr(value, self.field.target_field.name))
 
             # Set the related instance cache used by __get__ to avoid an SQL query
