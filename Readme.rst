@@ -121,6 +121,6 @@ And if we create a Person with no Surname::
     james = Person.objects.create(first_name='James', last_name='Smith')
     print (james.first_name, james.last_name, james.last_name_id)
 
-prints the following:
+prints the following::
 
     (u'James', None, u'Smith')
