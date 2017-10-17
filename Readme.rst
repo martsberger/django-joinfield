@@ -17,7 +17,7 @@ Install via pip::
 Put ``joinfield`` in INSTALLED_APPS in your settings file. Then you can import
 JoinField and use it when defining your models::
 
-    from joinfield import JoinField
+    from joinfield.joinfield import JoinField
 
     class Parent(models.Model):
         column = models.CharField(max_length=64)
