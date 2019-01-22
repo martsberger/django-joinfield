@@ -8,17 +8,32 @@ services:
   - mysql
   - postgresql
 env:
-  - DJANGO=1.11 DB=sqlite DJ2=""
-  - DJANGO=1.11 DB=mysql DJ2=""
-  - DJANGO=1.11 DB=postgres DJ2=""
+  - DJANGO=1.11 DB=sqlite
+  - DJANGO=1.11 DB=mysql
+  - DJANGO=1.11 DB=postgres
+  - DJANGO=2.0.9 DB=mysql
+  - DJANGO=2.0.9 DB=postgres
+  - DJANGO=2.1.3 DB=sqlite
+  - DJANGO=2.1.3 DB=mysql
+  - DJANGO=2.1.3 DB=postgres
 matrix:
-  include:
-  - python: "3.6"
-    env: DJ2="https://github.com/django/django/archive/stable/2.0.x.zip" DB=sqlite
-  - python: "3.6"
-    env: DJ2="https://github.com/django/django/archive/stable/2.0.x.zip" DB=postgres
-  - python: "3.5"
-    env: DJ2="" DJANGO="2.0b1" DB=postgres
+  exclude:
+    - python: "2.7"
+      env: DJANGO=2.0.9 DB=mysql
+    - python: "2.7"
+      env: DJANGO=2.0.9 DB=postgres
+    - python: "2.7"
+      env: DJANGO=2.1.3 DB=sqlite
+    - python: "2.7"
+      env: DJANGO=2.1.3 DB=mysql
+    - python: "2.7"
+      env: DJANGO=2.1.3 DB=postgres
+    - python: "3.4"
+      env: DJANGO=2.1.3 DB=sqlite
+    - python: "3.4"
+      env: DJANGO=2.1.3 DB=mysql
+    - python: "3.4"
+      env: DJANGO=2.1.3 DB=postgres
 
 before_script:
   - mysql -e 'create database joinfield;'
