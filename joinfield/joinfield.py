@@ -60,7 +60,12 @@ class JoinFieldDescriptor(ForwardManyToOneDescriptor):
 
 class JoinField(ForeignKey):
     forward_related_accessor_class = JoinFieldDescriptor
+    requires_unique_target = False
 
     def __init__(self, *args, **kwargs):
         kwargs['db_constraint'] = kwargs.get('db_constraint', False)
+        self.db_field_name = kwargs.pop('db_field_name', None)
         super(JoinField, self).__init__(*args, **kwargs)
+
+    def get_attname(self):
+        return self.db_field_name or None
