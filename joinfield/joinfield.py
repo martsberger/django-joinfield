@@ -68,4 +68,4 @@ class JoinField(ForeignKey):
         super(JoinField, self).__init__(*args, **kwargs)
 
     def get_attname(self):
-        return self.db_field_name or None
+        return self.db_field_name or self.name
