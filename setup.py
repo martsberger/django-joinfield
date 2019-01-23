@@ -2,10 +2,10 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-joinfield',
-    version='0.1',
+    version='0.2',
     description='A field type for Django models that allows joins to a related model without a foreign key.',
     url='https://github.com/martsberger/django-joinfield',
-    download_url='https://github.com/martsberger/django-joinfield/archive/0.1.tar.gz',
+    download_url='https://github.com/martsberger/django-joinfield/archive/0.2.tar.gz',
     author='Brad Martsberger',
     author_email='bmarts@procuredhealth.com',
     license='MIT',
