@@ -1,0 +1,58 @@
+name: MySql Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.8, 3.9, 3.10.13, 3.11]
+        django-version: [3.2.21, 4.1.11, 4.2.5]
+        exclude:
+          - python-version: 3.8
+            django-version: 4.1.11
+          - python-version: 3.8
+            django-version: 4.2.5
+          - python-version: 3.11
+            django-version: 3.2.21
+          - python-version: 3.11
+            django-version: 4.1.11
+    services:
+      mysql:
+        image: mysql
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_PASSWORD: mysql
+          MYSQL_USER: mysql
+          MYSQL_ROOT_PASSWORD: mysql
+          MYSQL_DATABASE: mysql
+          MYSQL_HOST: 127.0.0.1
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install coverage
+        pip install codecov
+        pip install mysqlclient
+        pip install -q Django==${{ matrix.django-version }}
+    - name: Run Tests
+      run: |
+        coverage run --omit="*site-packages*","*test*" runtests.py --settings=joinfield.tests.test_mysql_settings
+        codecov
