@@ -34,15 +34,15 @@ class Tests(TestCase):
         jane = Person.objects.create(first_name='Jane', last_name='Doe')
 
         does = Person.objects.filter(last_name='Doe')
-        self.assertQuerysetEqual(does, [repr(jon), repr(jane)], ordered=False)
+        self.assertQuerysetEqual(does, [jon, jane], ordered=False)
 
         jamal = Person.objects.create(first_name='jamal', last_name=doe)
 
         does = Person.objects.filter(last_name='Doe')
-        self.assertQuerysetEqual(does, [repr(jon), repr(jane), repr(jamal)], ordered=False)
+        self.assertQuerysetEqual(does, [jon, jane, jamal], ordered=False)
 
         does = Person.objects.filter(last_name=doe)
-        self.assertQuerysetEqual(does, [repr(jon), repr(jane), repr(jamal)], ordered=False)
+        self.assertQuerysetEqual(does, [jon, jane, jamal], ordered=False)
 
     def test_join_field_reverse_filter(self):
         doe = Surname.objects.create(name='Doe')
@@ -53,7 +53,7 @@ class Tests(TestCase):
         Person.objects.create(first_name='Jack', last_name=smith)
 
         surnames = Surname.objects.filter(person__first_name='Jon')
-        self.assertQuerysetEqual(surnames, [repr(doe)], ordered=False)
+        self.assertQuerysetEqual(surnames, [doe], ordered=False)
 
     def test_join_field_annotate(self):
         doe = Surname.objects.create(name='Doe')
@@ -84,7 +84,7 @@ class Tests(TestCase):
 
         does = doe.person_set.all()
 
-        self.assertQuerysetEqual(does, [repr(jon), repr(jane)], ordered=False)
+        self.assertQuerysetEqual(does, [jon, jane], ordered=False)
 
     def test_join_field_delete(self):
         doe = Surname.objects.create(name='Doe')
