@@ -27,29 +27,19 @@ class JoinFieldDescriptor(ForwardManyToOneDescriptor):
 
             # If value is a related instance, get the value from the related
             # field attribute
-            for lh_field, rh_field in self.field.related_fields:
-                setattr(instance, lh_field.attname, getattr(value, self.field.target_field.name))
-
-            # Set the related instance cache used by __get__ to avoid an SQL query
-            # when accessing the attribute we just set.
-            if hasattr(self.field, 'set_cached_value'):
-                # Django >= 2.0
-                self.field.set_cached_value(instance, value)
-            else:
-                # Django <= 1.11
-                setattr(instance, self.cache_name, value)
+            related_value = getattr(value, self.field.target_field.name)
 
         else:
-            if hasattr(self.field, 'set_cached_value'):
-                # Django >= 2.0
-                self.field.set_cached_value(instance, None)
-            else:
-                # Django <= 1.11
-                setattr(instance, self.cache_name, None)
+            related_value = value
+            value = None
 
-            # Set the values of the related field.
-            for lh_field, rh_field in self.field.related_fields:
-                setattr(instance, lh_field.attname, value)
+        # Set the related instance cache used by __get__ to avoid an SQL query
+        # when accessing the attribute we just set.
+        self.field.set_cached_value(instance, value)
+
+        # Set the values of the related field.
+        for lh_field, rh_field in self.field.related_fields:
+            setattr(instance, lh_field.attname, related_value)
 
     def __get__(self, instance, cls=None):
         try:
