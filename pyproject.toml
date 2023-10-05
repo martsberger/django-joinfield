@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "django-joinfield"
+version = "0.2.1"
+authors = [
+    { name="Brad Martsberger", email="bradley.marts@gmail.com"},
+]
+description = "A field type for Django models that allows joins to a related model without a foreign key."
+readme = "Readme.rst"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "django>=3.2",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/martsberger/django-joinfield"
+"Download" = "https://github.com/martsberger/django-joinfield/archive/0.2.1.tar.gz"
